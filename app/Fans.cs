@@ -189,6 +189,17 @@ namespace GHelper
             comboPowerMode.DisplayMember = "Value";
             comboPowerMode.ValueMember = "Key";
 
+            if (AppConfig.IsAlly())
+            {
+                sliderEPP.Value = PowerNative.GetEPP();
+                sliderEPP.Minimum = 0;
+                sliderEPP.Maximum = 100;
+                sliderEPP.Value = AppConfig.GetMode("epp_value", 0); // Default value is 0 if not set
+                sliderEPP.Scroll += SliderEPP_Scroll;
+                labelEPP.Text = $"EPP";
+                labelEPPSliderRight.Text = $"{sliderEPP.Value}%";
+            }
+
             FillModes();
             InitAll();
             InitCPU();
@@ -408,7 +419,8 @@ namespace GHelper
                 panelAdvancedApply.Visible = false;
                 panelDownload.Visible = true;
 
-            } else
+            }
+            else
             {
                 panelDownload.Visible = false;
             }
@@ -828,7 +840,7 @@ namespace GHelper
 
             comboPowerMode.Enabled = !batterySaver;
 
-            if (batterySaver) 
+            if (batterySaver)
                 comboPowerMode.SelectedIndex = 0;
             else
                 comboPowerMode.SelectedValue = powerMode;
@@ -933,7 +945,7 @@ namespace GHelper
                     labelLeftSlow.Text = "sPPT (CPU 2 min boost)";
                     labelLeftFast.Text = "fPPT (CPU 2 sec boost)";
                     panelFast.Visible = modeC1;
-                    
+
                 }
                 else
                 {
@@ -956,7 +968,7 @@ namespace GHelper
 
             if (limit_cpu > AsusACPI.MaxCPU) limit_cpu = AsusACPI.MaxCPU;
             if (limit_cpu < AsusACPI.MinCPU) limit_cpu = AsusACPI.MinCPU;
-            
+
             if (limit_slow > AsusACPI.MaxTotal) limit_slow = AsusACPI.MaxTotal;
             if (limit_slow < AsusACPI.MinTotal) limit_slow = AsusACPI.MinTotal;
 
@@ -1157,13 +1169,13 @@ namespace GHelper
                 trackGPUClockLimit.Value = NvidiaGpuControl.MaxClockLimit;
                 trackGPUCore.Value = 0;
                 trackGPUMemory.Value = 0;
-                
+
                 trackGPUBoost.Value = AsusACPI.MaxGPUBoost;
                 trackGPUTemp.Value = AsusACPI.MaxGPUTemp;
 
                 //AppConfig.SetMode("gpu_boost", trackGPUBoost.Value);
                 //AppConfig.SetMode("gpu_temp", trackGPUTemp.Value);
-                
+
                 AppConfig.RemoveMode("gpu_boost");
                 AppConfig.RemoveMode("gpu_temp");
 
@@ -1368,6 +1380,13 @@ namespace GHelper
                     }
                 }
             }
+        }
+
+        private void SliderEPP_Scroll(object? sender, EventArgs e)
+        {
+            AppConfig.SetMode("epp_value", sliderEPP.Value);
+            labelEPPSliderRight.Text = $"{sliderEPP.Value}%";
+            AppConfig.SetEPP(sliderEPP.Value);
         }
 
     }

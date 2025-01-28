@@ -34,6 +34,8 @@ namespace GHelper.Input
         KeyboardListener listener;
         KeyboardHook hook = new KeyboardHook();
 
+        static AudioIndicatorApplicationContext? audioIndicatorApplicationContext = null;
+
         public InputDispatcher()
         {
 
@@ -48,6 +50,8 @@ namespace GHelper.Input
             RegisterKeys();
 
             timer.Elapsed += Timer_Elapsed;
+
+            audioIndicatorApplicationContext = new AudioIndicatorApplicationContext();
 
         }
 
@@ -630,9 +634,11 @@ namespace GHelper.Input
 
         static void ToggleMic()
         {
-            bool muteStatus = Audio.ToggleMute();
-            Program.toast.RunToast(muteStatus ? Properties.Strings.Muted : Properties.Strings.Unmuted, muteStatus ? ToastIcon.MicrophoneMute : ToastIcon.Microphone);
-            if (AppConfig.IsVivoZenbook()) Program.acpi.DeviceSet(AsusACPI.MicMuteLed, muteStatus ? 1 : 0, "MicmuteLed");
+            var muteStatus = audioIndicatorApplicationContext?.ToggleMute();
+            if (muteStatus != null)
+            {
+                Program.toast.RunToast(muteStatus.Value ? Properties.Strings.Muted : Properties.Strings.Unmuted, muteStatus.Value ? ToastIcon.MicrophoneMute : ToastIcon.Microphone);
+            }
         }
 
         static bool GetTouchpadState()

@@ -77,6 +77,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="RTSSSharedMemoryNET">
+      <HintPath>RTSSSharedMemoryNET.dll</HintPath>
+		<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

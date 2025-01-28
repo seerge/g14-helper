@@ -60,6 +60,7 @@ namespace GHelper
             checkApplyFans = new RCheckBox();
             buttonReset = new RButton();
             comboBoost = new RComboBox();
+            sliderEPP = new TrackBar();
             panelSliders = new Panel();
             panelAdvanced = new Panel();
             panelAdvancedAlways = new Panel();
@@ -113,6 +114,15 @@ namespace GHelper
             panelBoostTitle = new Panel();
             pictureBoost = new PictureBox();
             labelBoost = new Label();
+            if (AppConfig.IsAlly())
+            {
+                panelEPP = new Panel();
+                panelEPPTitle = new Panel();
+                labelEPP = new Label();
+                labelEPPSliderLeft = new Label();
+                labelEPPSliderRight = new Label();
+                pictureEPP = new PictureBox();
+            }
             panelPowerMode = new Panel();
             comboPowerMode = new RComboBox();
             panelPowerModeTItle = new Panel();
@@ -189,6 +199,17 @@ namespace GHelper
             ((System.ComponentModel.ISupportInitialize)pictureBoxCPU).BeginInit();
             panelBoost.SuspendLayout();
             panelBoostTitle.SuspendLayout();
+
+            if (AppConfig.IsAlly())
+            {
+                ((System.ComponentModel.ISupportInitialize)pictureEPP).BeginInit();
+                panelEPP.SuspendLayout();
+                panelEPPTitle.SuspendLayout();
+                labelEPP.SuspendLayout();
+                labelEPPSliderLeft.SuspendLayout();
+                labelEPPSliderRight.SuspendLayout();
+            }
+
             ((System.ComponentModel.ISupportInitialize)pictureBoost).BeginInit();
             panelPowerMode.SuspendLayout();
             panelPowerModeTItle.SuspendLayout();
@@ -508,6 +529,25 @@ namespace GHelper
             comboBoost.Name = "comboBoost";
             comboBoost.Size = new Size(329, 40);
             comboBoost.TabIndex = 42;
+
+            if (AppConfig.IsAlly())
+            {
+                //
+                // sliderEPP
+                //
+                sliderEPP.Location = new Point(6, 48);
+                sliderEPP.Margin = new Padding(4, 2, 4, 2);
+                sliderEPP.Maximum = 100;
+                sliderEPP.Minimum = 0;
+                sliderEPP.Name = "sliderEPP";
+                sliderEPP.Size = new Size(508, 90);
+                sliderEPP.TabIndex = 10;
+                sliderEPP.TickFrequency = 10;
+                sliderEPP.SmallChange = 10;
+                sliderEPP.LargeChange = 10;
+                sliderEPP.TickStyle = TickStyle.TopLeft;
+            }
+
             // 
             // panelSliders
             // 
@@ -864,6 +904,8 @@ namespace GHelper
             panelPower.Controls.Add(panelSlow);
             panelPower.Controls.Add(panelTotal);
             panelPower.Controls.Add(panelTitleCPU);
+            panelPower.Controls.Add(panelEPP);
+            panelPower.Controls.Add(panelEPPTitle);
             panelPower.Controls.Add(panelBoost);
             panelPower.Controls.Add(panelBoostTitle);
             panelPower.Controls.Add(panelPowerMode);
@@ -1176,6 +1218,81 @@ namespace GHelper
             labelBoost.Size = new Size(133, 32);
             labelBoost.TabIndex = 39;
             labelBoost.Text = "CPU Boost";
+
+            if (AppConfig.IsAlly())
+            {
+                //
+                // panelEPP
+                //
+                panelEPP.Controls.Add(sliderEPP);
+                panelEPP.Controls.Add(labelEPPSliderLeft);
+                panelEPP.Controls.Add(labelEPPSliderRight);
+                panelEPP.Dock = DockStyle.Top;
+                panelEPP.Location = new Point(0, 184);
+                panelEPP.Margin = new Padding(4);
+                panelEPP.Name = "panelEPP";
+                // panelEPP.Size = new Size(520, 90);
+                panelTotal.MaximumSize = new Size(0, 124);
+                panelEPP.TabIndex = 13;
+                //
+                // panelEPPTitle
+                //
+                panelEPPTitle.AutoSize = true;
+                panelEPPTitle.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                panelEPPTitle.Controls.Add(pictureEPP);
+                panelEPPTitle.Controls.Add(labelEPP);
+                panelEPPTitle.Dock = DockStyle.Top;
+                panelEPPTitle.Location = new Point(0, 248);
+                panelEPPTitle.Margin = new Padding(4);
+                panelEPPTitle.Name = "panelEPPTitle";
+                panelEPPTitle.Size = new Size(520, 60);
+                panelEPPTitle.TabIndex = 49;
+                //
+                // labelEPP
+                //
+                labelEPP.AutoSize = true;
+                labelEPP.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+                labelEPP.Location = new Point(46, 18);
+                labelEPP.Margin = new Padding(4, 0, 4, 0);
+                labelEPP.Name = "labelEPP";
+                labelEPP.Size = new Size(133, 32);
+                labelEPP.TabIndex = 39;
+                labelEPP.Text = "EPP";
+                //
+                // pictureEPP
+                //
+                pictureEPP.BackgroundImage = Properties.Resources.icons8_leaf_48;
+                pictureEPP.BackgroundImageLayout = ImageLayout.Zoom;
+                pictureEPP.InitialImage = null;
+                pictureEPP.Location = new Point(10, 18);
+                pictureEPP.Margin = new Padding(4, 2, 4, 10);
+                pictureEPP.Name = "pictureEPP";
+                pictureEPP.Size = new Size(32, 32);
+                pictureEPP.TabIndex = 40;
+                pictureEPP.TabStop = false;
+                // 
+                // labelEPPSliderLeft
+                // 
+                labelEPPSliderLeft.AutoSize = true;
+                labelEPPSliderLeft.Location = new Point(10, 10);
+                labelEPPSliderLeft.Margin = new Padding(4, 0, 4, 0);
+                labelEPPSliderLeft.Name = "labelEPPSliderLeft";
+                labelEPPSliderLeft.Size = new Size(51, 32);
+                labelEPPSliderLeft.TabIndex = 11;
+                labelEPPSliderLeft.Text = "GPU Priority";
+                // 
+                // labelEPPSliderRight
+                // 
+                labelEPPSliderRight.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+                labelEPPSliderRight.Location = new Point(396, 10);
+                labelEPPSliderRight.Margin = new Padding(4, 0, 4, 0);
+                labelEPPSliderRight.Name = "labelEPPSliderRight";
+                labelEPPSliderRight.Size = new Size(116, 32);
+                labelEPPSliderRight.TabIndex = 12;
+                labelEPPSliderRight.Text = "%";
+                labelEPPSliderRight.TextAlign = ContentAlignment.TopRight;
+            }
+
             // 
             // panelPowerMode
             // 
@@ -1747,6 +1864,12 @@ namespace GHelper
             panelBoost.ResumeLayout(false);
             panelBoostTitle.ResumeLayout(false);
             panelBoostTitle.PerformLayout();
+            panelEPP.ResumeLayout(false);
+            panelEPPTitle.ResumeLayout(false);
+            panelEPPTitle.PerformLayout();
+            labelEPPSliderLeft.ResumeLayout(false);
+            labelEPPSliderRight.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureEPP).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoost).EndInit();
             panelPowerMode.ResumeLayout(false);
             panelPowerModeTItle.ResumeLayout(false);
@@ -1829,7 +1952,9 @@ namespace GHelper
         private RCheckBox checkApplyFans;
         private RButton buttonReset;
         private Label labelBoost;
+        private Label labelEPP;
         private RComboBox comboBoost;
+        private TrackBar sliderEPP;
         private PictureBox picturePerf;
         private Label labelFans;
         private Panel panelFast;
@@ -1837,6 +1962,11 @@ namespace GHelper
         private Label labelLeftFast;
         private TrackBar trackFast;
         private Panel panelBoost;
+        private Panel panelEPP;
+        private Panel panelEPPTitle;
+        private Label labelEPPSliderLeft;
+        private Label labelEPPSliderRight;
+        private PictureBox pictureEPP;
         private RComboBox comboModes;
         private RButton buttonAdd;
         private RButton buttonRemove;

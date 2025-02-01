@@ -13,7 +13,7 @@ namespace GHelper.Helpers
                 var mmDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia);
 
                 bool status = !commDevice.AudioEndpointVolume.Mute;
-                
+
                 commDevice.AudioEndpointVolume.Mute = status;
                 consoleDevice.AudioEndpointVolume.Mute = status;
                 mmDevice.AudioEndpointVolume.Mute = status;
@@ -23,6 +23,16 @@ namespace GHelper.Helpers
                 Logger.WriteLine(mmDevice.ToString() + ":" + status);
 
                 return status;
+            }
+        }
+
+        public static bool IsMuted()
+        {
+            using (var enumerator = new MMDeviceEnumerator())
+            {
+                var commDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Communications);
+
+                return commDevice.AudioEndpointVolume.Mute;
             }
         }
     }

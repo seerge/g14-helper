@@ -244,10 +244,10 @@
     <value>Automatinis</value>
   </data>
   <data name="AutoRefreshTooltip" xml:space="preserve">
-    <value>Nustatomas 60Hz dažn. taupymui, ir atgal, kuomet įkraunama</value>
+    <value>Baterijos režimu nustatomas 60Hz dažn., atstatoma įkraunant</value>
   </data>
   <data name="Awake" xml:space="preserve">
-    <value>Pabudęs</value>
+    <value>Pabudus</value>
   </data>
   <data name="BacklightLow" xml:space="preserve">
     <value>Žem.</value>
@@ -262,7 +262,7 @@
     <value>Išjungta</value>
   </data>
   <data name="BacklightTimeout" xml:space="preserve">
-    <value>Laiko riba su lizdu / akumuliatoriumi (0 – ĮJUNGTA)</value>
+    <value>Apšvietimo laikas įkraunant / baterija (0 – ĮJUNGTA)</value>
   </data>
   <data name="BacklightTimeoutBattery" xml:space="preserve">
     <value>Foninio apšvietimo laikas akumuliatoriaus režimu</value>
@@ -298,7 +298,7 @@
     <value>BIOS ir tvarkyklių naujinimai</value>
   </data>
   <data name="Boot" xml:space="preserve">
-    <value>Paleidimas</value>
+    <value>Paleidžiant</value>
   </data>
   <data name="BootSound" xml:space="preserve">
     <value>Paleidimo garsas</value>
@@ -364,7 +364,7 @@
     <value>Tvarkyklės ir programinė įranga</value>
   </data>
   <data name="EcoGPUTooltip" xml:space="preserve">
-    <value>Išjungia dGPU akumuliatoriaus taupymui</value>
+    <value>Išjungiamas dGPU (tausojama baterija)</value>
   </data>
   <data name="EcoMode" xml:space="preserve">
     <value>Ekonomiškas</value>
@@ -549,10 +549,10 @@ Vis tiek norite tęsti?</value>
     <value>Paveikslėlis</value>
   </data>
   <data name="MaxRefreshTooltip" xml:space="preserve">
-    <value>Maksimalus kadrų dažnis mažesnei delsai</value>
+    <value>Maksimalus kadrų dažnis (mažesnė delsa)</value>
   </data>
   <data name="MinRefreshTooltip" xml:space="preserve">
-    <value>60Hz kadrų dažnis energijos taupymui</value>
+    <value>Nustatomas 60Hz kadrų dažnis (tausojama baterija)</value>
   </data>
   <data name="Minute" xml:space="preserve">
     <value>min.</value>
@@ -624,7 +624,7 @@ Vis tiek norite tęsti?</value>
     <value>Optimizuotas</value>
   </data>
   <data name="OptimizedGPUTooltip" xml:space="preserve">
-    <value>Naudojant akumuliatorių įjungiamas ekon. režimas, įkraunant - stand. režimas</value>
+    <value>Įkraunant - įprastas režimas; naudojant bateriją - ekonomiškas režimas</value>
   </data>
   <data name="OptimizedUSBC" xml:space="preserve">
     <value>Išjungti GPU optimizuotame režime, kai naudojamas USB-C įkroviklis</value>
@@ -693,16 +693,16 @@ Vis tiek norite tęsti?</value>
     <value>Ekrano skydelio ryškumo didinimas</value>
   </data>
   <data name="Shutdown" xml:space="preserve">
-    <value>Išjungimas</value>
+    <value>Išjungus</value>
   </data>
   <data name="Silent" xml:space="preserve">
     <value>Tylus</value>
   </data>
   <data name="Sleep" xml:space="preserve">
-    <value>Miegas</value>
+    <value>Miegant</value>
   </data>
   <data name="StandardGPUTooltip" xml:space="preserve">
-    <value>Įjungia dGPU įprastam naudojimui</value>
+    <value>Įjungiamas dGPU (įprastam naudojimui)</value>
   </data>
   <data name="StandardMode" xml:space="preserve">
     <value>Įprastas</value>
@@ -756,7 +756,7 @@ Vis tiek norite tęsti?</value>
     <value>Išjungti naudojant akumuliatorių</value>
   </data>
   <data name="UltimateGPUTooltip" xml:space="preserve">
-    <value>Maksimaliai padidinamas kadrų kiekis, nukreipiant ekraną į dGPU</value>
+    <value>Nukreipiama į dGPU (maksimaliai padidinamas kadrų kiekis)</value>
   </data>
   <data name="UltimateMode" xml:space="preserve">
     <value>Maksimalus</value>

@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace GHelper.Mode
 {
@@ -56,6 +57,10 @@ namespace GHelper.Mode
 
         static readonly Guid GUID_CPU = new Guid("54533251-82be-4824-96c1-47b60b740d00");
         static readonly Guid GUID_BOOST = new Guid("be337238-0d82-4146-a960-4f3749d470c7");
+
+        static readonly Guid GUID_SUB_PROCESSOR = new Guid("54533251-82be-4824-96c1-47b60b740d00");
+        static readonly Guid GUID_PERFEPP = new Guid("36687f9e-e3a5-4dbf-b1dc-15eb381c6863");
+        static readonly Guid GUID_PERFEPP1 = new Guid("36687f9e-e3a5-4dbf-b1dc-15eb381c6864");
 
         private static Guid GUID_SLEEP_SUBGROUP = new Guid("238c9fa8-0aad-41ed-83f4-97be242c8f20");
         private static Guid GUID_HIBERNATEIDLE = new Guid("9d7815a6-7ee4-497e-8888-515a05f02364");
@@ -139,6 +144,42 @@ namespace GHelper.Mode
             PowerSetActiveScheme(IntPtr.Zero, activeSchemeGuid);
 
             Logger.WriteLine("Boost " + boost);
+        }
+
+        public static int GetEPP()
+        {
+            IntPtr AcValueIndex;
+            Guid activeSchemeGuid = GetActiveScheme();
+            Guid subGroupOfPowerSettingsGuid = GUID_SUB_PROCESSOR;
+            Guid perfEPPGuid = GUID_PERFEPP;
+
+            UInt32 value = PowerReadACValueIndex(IntPtr.Zero,
+                 activeSchemeGuid,
+                 subGroupOfPowerSettingsGuid,
+                perfEPPGuid,
+                out AcValueIndex);
+
+            Logger.WriteLine("EPP: " + AcValueIndex.ToInt32());
+            return AcValueIndex.ToInt32();
+        }
+
+        public static void SetEPP(int value)
+        {
+            Guid activeSchemeGuid = GetActiveScheme();
+            Guid subGroupOfPowerSettingsGuid = GUID_SUB_PROCESSOR;
+            Guid PerfEPPGuid = GUID_PERFEPP;
+            Guid PerfEPP1Guid = GUID_PERFEPP1;
+
+            PowerWriteACValueIndex(IntPtr.Zero, activeSchemeGuid, subGroupOfPowerSettingsGuid, PerfEPPGuid, value);
+            PowerWriteACValueIndex(IntPtr.Zero, activeSchemeGuid, subGroupOfPowerSettingsGuid, PerfEPP1Guid, value);
+
+            PowerWriteDCValueIndex(IntPtr.Zero, activeSchemeGuid, subGroupOfPowerSettingsGuid, PerfEPPGuid, value);
+            PowerWriteDCValueIndex(IntPtr.Zero, activeSchemeGuid, subGroupOfPowerSettingsGuid, PerfEPP1Guid, value);
+
+            // Apply the active power scheme
+            PowerSetActiveScheme(IntPtr.Zero, activeSchemeGuid);
+
+            Logger.WriteLine("EPP set to " + value);
         }
 
         public static string GetPowerMode()

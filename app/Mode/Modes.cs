@@ -21,6 +21,18 @@
 
             return modes;
         }
+        
+        public static Dictionary<int, string> GetDictionaryCustom()
+        {
+            Dictionary<int, string> modes = new Dictionary<int, string>();
+
+            for (int i = 3; i < maxModes; i++)
+            {
+                if (Exists(i)) modes.Add(i, GetName(i));
+            }
+
+            return modes;
+        }
 
         public static List<int> GetList()
         {

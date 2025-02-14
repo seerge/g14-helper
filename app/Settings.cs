@@ -21,6 +21,8 @@ namespace GHelper
     {
         ContextMenuStrip contextMenuStrip = new CustomContextMenu();
         ToolStripMenuItem menuSilent, menuBalanced, menuTurbo, menuEco, menuStandard, menuUltimate, menuOptimized;
+        Dictionary<int, ToolStripMenuItem> menuModesCustom = new ();
+
 
         public GPUModeControl gpuControl;
         public AllyControl allyControl;
@@ -756,6 +758,20 @@ namespace GHelper
             menuTurbo.Checked = (mode == AsusACPI.PerformanceTurbo);
             contextMenuStrip.Items.Add(menuTurbo);
 
+            if (Modes.GetDictionaryCustom().Count > 0)
+                contextMenuStrip.Items.Add("-");
+
+            menuModesCustom.Clear();
+            foreach (var (modeIdx, name) in Modes.GetDictionaryCustom())
+            {
+                var menuCustom = new ToolStripMenuItem(name);
+                menuCustom.Click += (sender, args) => { Program.modeControl.SetPerformanceMode(modeIdx); };
+                menuCustom.Margin = padding;
+                menuCustom.Checked = (modeIdx == Modes.GetCurrent());
+                menuModesCustom.Add(modeIdx, menuCustom);
+                contextMenuStrip.Items.Add(menuCustom);
+            }
+            
             contextMenuStrip.Items.Add("-");
 
             if (isGpuSection)
@@ -1504,6 +1520,10 @@ namespace GHelper
             menuSilent.Checked = false;
             menuBalanced.Checked = false;
             menuTurbo.Checked = false;
+            foreach (var (key, value) in menuModesCustom)
+            {
+                value.Checked = false;
+            }
 
             switch (mode)
             {
@@ -1520,6 +1540,8 @@ namespace GHelper
                     menuBalanced.Checked = true;
                     break;
                 default:
+                    if (menuModesCustom.TryGetValue(mode, out var value))
+                        value.Checked = true;
                     buttonFans.Activated = true;
                     buttonFans.BorderColor = Modes.GetBase(mode) switch
                     {

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 
 namespace GHelper.Helpers
 {
@@ -36,12 +37,12 @@ namespace GHelper.Helpers
 
         public static bool IsRunning()
         {
-            return Process.GetProcessesByName("AsusOptimization").Count() > 0;
+            return Process.GetProcessesByName("AsusOptimization").Any();
         }
 
         public static bool IsOSDRunning()
         {
-            return Process.GetProcessesByName("AsusOSD").Count() > 0;
+            return Process.GetProcessesByName("AsusOSD").Any();
         }
 
 
@@ -50,13 +51,13 @@ namespace GHelper.Helpers
             int count = 0;
             foreach (string service in services)
             {
-                if (Process.GetProcessesByName(service).Count() > 0) count++;
+                if (Process.GetProcessesByName(service).Any()) count++;
             }
 
             if (AppConfig.IsStopAC())
                 foreach (string service in processesAC)
                 {
-                    if (Process.GetProcessesByName(service).Count() > 0)
+                    if (Process.GetProcessesByName(service).Any())
                     {
                         count++;
                         Logger.WriteLine(service);

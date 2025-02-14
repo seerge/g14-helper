@@ -1,3 +1,4 @@
+using GHelper;
 using GHelper.Mode;
 using System.Management;
 using System.Text.Json;
@@ -575,7 +576,17 @@ public static class AppConfig
 
     public static bool IsManualModeRequired()
     {
-        if (!IsMode("auto_apply_power"))
+        bool isAutoTDPActive = false;
+
+
+        if (Program.autoTDPService is not null)
+        {
+            //If using ASUS ACPI and AutoTDP is running right now, ignore current power mode as the auto tdp power settings are temporary
+            isAutoTDPActive = AppConfig.GetString("auto_tdp_limiter", "").Equals("asus_acpi") && Program.autoTDPService.IsActive();
+        }
+
+
+        if (!IsMode("auto_apply_power") || isAutoTDPActive)
             return false;
 
         return
